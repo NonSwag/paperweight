@@ -10,7 +10,7 @@
   "url": "https://github.com/PaperMC/paperweight",
   "java": "21",
   "layout": "maven",
-  "workspace": ["paperweight-lib", "paperweight-core", "paperweight-userdev"],
+  "workspace": ["paperweight-lib", "paperweight-core", "jpm-paperweight"],
   // Gradle's embedded Kotlin (Gradle 9.8.0 runs Kotlin 2.4.10), with what the kotlin-dsl plugin sets up: the
   // SAM-with-receiver and assignment compiler plugins for Gradle's annotations, and its compiler flags.
   "kotlin": {

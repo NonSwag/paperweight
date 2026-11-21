@@ -22,7 +22,7 @@ import java.util.zip.ZipOutputStream;
  * Publishes the plugins to a Maven repository, as the Gradle build's maven-publish and java-gradle-plugin did:
  * each plugin jar (the bundle, paperweight-lib and the dependencies shaded in), its sources, a POM without
  * dependencies (everything is in the jar; Gradle provides the rest), and a marker artifact per plugin id, so
- * {@code plugins { id("io.papermc.paperweight.userdev") version "..." }} finds it.
+ * {@code plugins { id("io.papermc.paperweight.patcher") version "..." }} finds it.
  *
  * <pre>
  * jpm run publish https://artifactory.papermc.io/artifactory/snapshots/
@@ -41,12 +41,10 @@ public final class Publish {
     static final Map<String, List<String>> PLUGINS = new LinkedHashMap<>();
     static {
         PLUGINS.put("paperweight-core", List.of("io.papermc.paperweight.core", "io.papermc.paperweight.patcher"));
-        PLUGINS.put("paperweight-userdev", List.of("io.papermc.paperweight.userdev"));
     }
 
     static final Map<String, String> DESCRIPTIONS = Map.of(
-            "paperweight-core", "Gradle plugin for developing Paper Server and derivatives",
-            "paperweight-userdev", "Gradle plugin for developing Paper plugins using server internals");
+            "paperweight-core", "Gradle plugin for developing Paper Server and derivatives");
 
     static final HttpClient HTTP = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();
 

@@ -32,6 +32,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: paperweight ${{ steps.vars.outputs.tag }}
       - name: Attach the plugin jars
-        run: gh release upload "${{ steps.vars.outputs.tag }}" paperweight-core/dist/*-bundle.jar paperweight-userdev/dist/*-bundle.jar
+        run: gh release upload "${{ steps.vars.outputs.tag }}" paperweight-core/dist/*-bundle.jar
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

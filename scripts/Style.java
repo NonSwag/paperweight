@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  * </pre>
  */
 public final class Style {
-    static final List<String> MODULES = List.of("paperweight-lib", "paperweight-core", "paperweight-userdev");
+    static final List<String> MODULES = List.of("paperweight-lib", "paperweight-core", "jpm-paperweight");
 
     public static void main(String[] args) throws Exception {
         boolean format = List.of(args).contains("--format");

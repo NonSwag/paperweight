@@ -1,0 +1,19 @@
+// paperweight-userdev for jpm: Paper's dev bundles as a dependency of jpm projects.
+//   jpm add -g github:NonSwag/paperweight/jpm-paperweight     # installs `jpm paperweight`
+//   jpm paperweight init                                       # in a plugin project
+{
+  "name": "jpm-paperweight",
+  "description": "Paper dev bundles for jpm projects: develop Paper plugins against server internals",
+  "main": "io.papermc.paperweight.jpm.MainKt",
+  "runtime": {
+    "org.jetbrains.kotlin:kotlin-stdlib": "2.4.10",
+    "com.google.code.gson:gson": "2.14.0",
+    "io.sigpipe:jbsdiff": "1.0"
+  },
+  "test": {
+    "org.jetbrains.kotlin:kotlin-test-junit5": "2.4.10",
+    "org.junit.jupiter:junit-jupiter-engine": "6.1.3",
+    "org.junit.platform:junit-platform-launcher": "6.1.3"
+  },
+  "extensions": { "publish": { "skip": true } }
+}
