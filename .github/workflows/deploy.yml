@@ -3,9 +3,8 @@ on:
   push:
     tags: [ 'v*' ]
 
-# The Gradle build published releases to the Gradle Plugin Portal (publishPlugins). jpm has no Plugin Portal
-# publishing, so a release builds the plugin jars and attaches them to the GitHub release; publish them to the
-# Portal by hand, or to a Maven repository with `jpm run publish <url>`.
+# A release builds the plugin jars and attaches them to the GitHub release. jpm does not publish to the Gradle
+# Plugin Portal: publish them there by hand, or to a Maven repository with `jpm run publish <url>`.
 jobs:
   deploy:
     name: Deploy

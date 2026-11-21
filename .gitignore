@@ -39,7 +39,7 @@ ehthumbs_vista.db
 # jpm: build cache and jars
 .cache/
 dist/
-# Gradle's ProjectBuilder (in the tests) and TestKit builds write here
+# paperweight-core's tests: Gradle's ProjectBuilder and TestKit builds write here
 **/build/
 **/.gradle/
 

@@ -1,4 +1,4 @@
-paperweight is a Gradle plugin for the PaperMC project.
+paperweight is build tooling for the PaperMC project.
 
 Copyright (c) 2023 Kyle Wood (DenWav)
                    Contributors

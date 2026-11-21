@@ -5,7 +5,7 @@
   "name": "paperweight",
   "version": "2.0.0-SNAPSHOT",
   "group": "io.papermc.paperweight",
-  "description": "Gradle plugin for the PaperMC project",
+  "description": "Build tooling for the PaperMC project",
   "license": "LGPL-2.1-only",
   "url": "https://github.com/PaperMC/paperweight",
   "java": "21",

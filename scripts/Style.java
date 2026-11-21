@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Checks the code style, as the Gradle build's ktlint and level-headered plugins did: ktlint (configured by
+ * Checks the code style: ktlint (configured by
  * .editorconfig) and the license header from license/copyright.txt on every Kotlin source.
  *
  * <pre>

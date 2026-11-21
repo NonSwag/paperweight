@@ -19,7 +19,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Publishes the plugins to a Maven repository, as the Gradle build's maven-publish and java-gradle-plugin did:
+ * Publishes the Gradle plugins to a Maven repository:
  * each plugin jar (the bundle, paperweight-lib and the dependencies shaded in), its sources, a POM without
  * dependencies (everything is in the jar; Gradle provides the rest), and a marker artifact per plugin id, so
  * {@code plugins { id("io.papermc.paperweight.patcher") version "..." }} finds it.
@@ -37,7 +37,7 @@ public final class Publish {
     static final String GROUP = "io.papermc.paperweight";
     static final String REPO_URL = "https://github.com/PaperMC/paperweight";
 
-    /** The published modules and the plugin ids each provides (gradlePlugin { plugins { ... } } in the Gradle build). */
+    /** The published modules and the plugin ids each provides (their META-INF/gradle-plugins descriptors). */
     static final Map<String, List<String>> PLUGINS = new LinkedHashMap<>();
     static {
         PLUGINS.put("paperweight-core", List.of("io.papermc.paperweight.core", "io.papermc.paperweight.patcher"));
@@ -148,7 +148,7 @@ public final class Publish {
                 """.formatted(GROUP, module, version, DESCRIPTIONS.get(module), REPO_URL, REPO_URL, REPO_URL, REPO_URL, REPO_URL);
     }
 
-    /** What java-gradle-plugin publishes for a plugin id: a POM that depends on the plugin's artifact. */
+    /** A plugin marker: the POM Gradle looks up for a plugin id, which depends on the plugin's artifact. */
     static String markerPom(String id, String module, String version) {
         return """
                 <?xml version="1.0" encoding="UTF-8"?>

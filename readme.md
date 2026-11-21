@@ -4,7 +4,7 @@
 - `paperweight-core`: a Gradle plugin used to build Paper
 - `paperweight-patcher`: a Gradle plugin used to create forks of Paper or other `paperweight-patcher`-based forks
 - `jpm-paperweight`: a [jpm](https://github.com/java-package-manager/jpm) extension used to develop plugins against
-  Paper's server internals (what the `paperweight-userdev` Gradle plugin did)
+  Paper's server internals
 
 ### Developing plugins against server internals
 
@@ -28,18 +28,18 @@ remapping. Decompiled server sources for IDEs are not generated yet.
 
 ### Building
 
-paperweight builds with [jpm](https://github.com/java-package-manager/jpm), which installs the JDK and the Gradle
-distribution the plugins compile against by itself:
+paperweight builds with [jpm](https://github.com/java-package-manager/jpm), which installs what it needs by itself,
+the JDK included:
 
 ```bash
 curl -fsSL https://github.com/java-package-manager/jpm/releases/latest/download/install.sh | sh
-jpm build    # the Gradle plugin jar, paperweight-core/dist/*-bundle.jar, and the jpm extension
+jpm build    # paperweight-core/dist/*-bundle.jar (the core and patcher plugins) and the jpm extension
 jpm test
 ```
 
 `project.jsonc` in the root and in each module is the build; `project.lock` pins every dependency.
 
-### How to use this for testing:
+### Testing the core and patcher plugins in a Gradle project
 
 - Install `paperweight` to Maven Local:
 ```bash
@@ -51,7 +51,7 @@ jpm run publish file://$HOME/.m2/repository
 
 > Most output `paperweight` creates goes into `<project-root>/.gradle/caches/paperweight`
 
-### Debugging
+### Debugging the Gradle plugins
 
 Create a remote JVM debug run configuration in IntelliJ which connects to port 5005, then run Gradle in debug mode
 in the project you test paperweight with:
@@ -71,9 +71,3 @@ This projects follows the opinionated [`ktlint`](https://ktlint.github.io/) lint
 jpm run lint      # check
 jpm run format    # reformat with ktlint and fix the headers; adjust what ktlint can't fix itself
 ```
-
-> This project uses many new Gradle features to make sure we're ready for Gradle 7.0 and beyond, and we don't find
-> ourselves stuck in a bad position where it's too hard for us to update. That being said, Gradle always marks new APIs
-> as unstable for a bit until the next major version, so you should probably disable the "Unstable API Usages" inspection
-> in IntelliJ as well. The easiest way to do this is just find any place where an "unstable API" is used (tons in
-> `Paperweight.kt`) and disable the inspection from there.
