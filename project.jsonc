@@ -1,0 +1,41 @@
+// paperweight builds with jpm (https://github.com/java-package-manager/jpm): `jpm build`, `jpm test`,
+// `jpm build --bundle` for the plugin jars, and `jpm run lint` / `jpm run format`. See readme.md.
+{
+  "$schema": "https://github.com/java-package-manager/jpm/releases/latest/download/project.schema.json",
+  "name": "paperweight",
+  "version": "2.0.0-SNAPSHOT",
+  "group": "io.papermc.paperweight",
+  "description": "Gradle plugin for the PaperMC project",
+  "license": "LGPL-2.1-only",
+  "url": "https://github.com/PaperMC/paperweight",
+  "java": "21",
+  "layout": "maven",
+  "workspace": ["paperweight-lib", "paperweight-core", "paperweight-userdev"],
+  // Gradle's embedded Kotlin (Gradle 9.8.0 runs Kotlin 2.4.10), with what the kotlin-dsl plugin sets up: the
+  // SAM-with-receiver and assignment compiler plugins for Gradle's annotations, and its compiler flags.
+  "kotlin": {
+    "version": "2.4.10",
+    "plugins": ["sam-with-receiver", "assignment"],
+    "args": [
+      "-jvm-default=no-compatibility",
+      "-Xjsr305=strict",
+      "-Xsam-conversions=class",
+      "-P", "plugin:org.jetbrains.kotlin.samWithReceiver:annotation=org.gradle.api.HasImplicitReceiver",
+      "-P", "plugin:org.jetbrains.kotlin.assignment:annotation=org.gradle.api.SupportsKotlinAssignmentOverloading"
+    ]
+  },
+  // Gradle provides the Kotlin standard library and SLF4J to plugins, so neither is shaded into the plugin jars
+  "exclude": ["org.jetbrains.kotlin", "org.slf4j"],
+  "repositories": [
+    "https://repo.papermc.io/repository/maven-public/",
+    "https://maven.neoforged.net/releases",
+    "https://maven.fabricmc.net"
+  ],
+  // ktlint (configured by .editorconfig) and the license header (license/copyright.txt) on every Kotlin source
+  "scripts": {
+    "lint": "scripts/Style.java",
+    "format": "\"$JPM_EXE\" run lint --format",
+    // the plugin jars and their marker artifacts to a Maven repository: jpm run publish <url>
+    "publish": "scripts/Publish.java"
+  }
+}

@@ -22,8 +22,9 @@
 
 package io.papermc.paperweight.util
 
+// The versions are defines in paperweight-lib/project.jsonc; jpm generates LibraryVersionDefines from them.
 object LibraryVersions {
-    const val JST: String = "{{ jst_version }}"
-    const val TINY_REMAPPER: String = "{{ tinyRemapper_version }}"
-    const val CHECKSTYLE: String = "{{ checkstyle_version }}"
+    const val JST: String = LibraryVersionDefines.JST
+    const val TINY_REMAPPER: String = LibraryVersionDefines.TINY_REMAPPER
+    const val CHECKSTYLE: String = LibraryVersionDefines.CHECKSTYLE
 }

@@ -5,22 +5,35 @@
 - `paperweight-patcher`: Used to create forks of Paper or other `paperweight-patcher`-based forks
 - `paperweight-userdev`: Used to develop internals plugins using Mojang mappings
 
+### Building
+
+paperweight builds with [jpm](https://github.com/java-package-manager/jpm), which installs the JDK and the Gradle
+distribution the plugins compile against by itself:
+
+```bash
+curl -fsSL https://github.com/java-package-manager/jpm/releases/latest/download/install.sh | sh
+jpm build    # the plugin jars, paperweight-core/dist/ and paperweight-userdev/dist/ (*-bundle.jar)
+jpm test
+```
+
+`project.jsonc` in the root and in each module is the build; `project.lock` pins every dependency.
+
 ### How to use this for testing:
 
 - Install `paperweight` to Maven Local:
 ```bash
-./gradlew publishToMavenLocal
+jpm run publish file://$HOME/.m2/repository
 ```
 - Add `mavenLocal()` for plugin resolution in your test project
   (see the [Gradle docs](https://docs.gradle.org/current/userguide/plugins.html#sec:custom_plugin_repositories) for more details)
-- Adjust the `paperweight` version in your test project
-  - Local versions of `paperweight` will use have the `-SNAPSHOT` suffix in the version from `gradle.properties` replaced by `-LOCAL-SNAPSHOT`
+- Adjust the `paperweight` version in your test project to the `version` in `project.jsonc`
 
 > Most output `paperweight` creates goes into `<project-root>/.gradle/caches/paperweight`
 
 ### Debugging
 
-Create a remote JVM debug run configuration in IntelliJ which connects to port 5005, then run Gradle in debug mode:
+Create a remote JVM debug run configuration in IntelliJ which connects to port 5005, then run Gradle in debug mode
+in the project you test paperweight with:
 
 ```bash
 ./gradlew --no-daemon -Dorg.gradle.debug=true <task>
@@ -30,24 +43,12 @@ Gradle will not start until the debugger is connected so you don't need to worry
 
 ### Style Guide
 
-This projects follows the opinionated [`ktlint`](https://ktlint.github.io/) linter and formatter. It uses the
-[`ktlint-gradle`](https://github.com/jlleitschuh/ktlint-gradle) plugin to automatically check and format the code in
-this repo.
-
-Run the `format` task to automatically reformat the project using `ktlint` - which should handle most cases - to
-maintain a consistent code style. Adjust any errors `ktlint` can't fix itself before committing.
+This projects follows the opinionated [`ktlint`](https://ktlint.github.io/) linter and formatter, configured in
+`.editorconfig`, and every source starts with the license header from `license/copyright.txt`.
 
 ```
-./gradlew format
-```
-
-### IDE Setup
-
-It's recommended to run the `ktlintApplyToIdea` and `addKtlintFormatGitPreCommitHook` tasks to configure your IDE
-with `ktlint` style settings and to automatically format this project's code before committing:
-
-```
-./gradlew ktlintApplyToIdea addKtlintFormatGitPreCommitHook
+jpm run lint      # check
+jpm run format    # reformat with ktlint and fix the headers; adjust what ktlint can't fix itself
 ```
 
 > This project uses many new Gradle features to make sure we're ready for Gradle 7.0 and beyond, and we don't find
