@@ -1,0 +1,9 @@
+{
+  "name": "paper",
+  "version": "26.3-SNAPSHOT",
+  "group": "io.papermc.paper",
+  "java": "25",
+  "layout": "maven",
+  "workspace": ["paper-api", "paper-server"],
+  "repositories": ["https://repo.papermc.io/repository/maven-public/"]
+}

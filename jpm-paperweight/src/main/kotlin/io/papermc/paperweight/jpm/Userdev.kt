@@ -205,6 +205,20 @@ class Userdev(private val home: Path, private val repositories: Repositories) {
         return out
     }
 
+    /**
+     * `ext:paperweight/mache`: Minecraft's libraries for a mache version, from the serverCompileClasspath variant of its
+     * module metadata (what Paper's server compiles against besides its own dependencies). Provides no jars.
+     */
+    fun macheLibraries(version: String): Resolved {
+        val text = repositories.getString("io.papermc", "mache", version, "mache-$version.module")
+            ?: throw PaperweightException("io.papermc:mache:$version has no module metadata in ${repositories.urls}")
+        val deps = LinkedHashMap<String, String>()
+        for (d in compileVariant(gson.fromJson(text, JsonObject::class.java), "mache").deps()) {
+            if (!d.platform && d.version != null) deps.putIfAbsent(d.key, d.version)
+        }
+        return Resolved(version, emptyList(), deps)
+    }
+
     private data class Dep(val group: String, val module: String, val version: String?, val classifier: String?, val platform: Boolean) {
         val key: String get() = "$group:$module" + (classifier?.let { ":$it" } ?: "")
     }

@@ -1,4 +1,5 @@
-// paperweight-userdev for jpm: Paper's dev bundles as a dependency of jpm projects.
+// paperweight for jpm: Paper's dev bundles as a dependency of plugin projects (userdev), and Paper's patch
+// workflow (core).
 //   jpm add -g github:NonSwag/paperweight/jpm-paperweight     # installs `jpm paperweight`
 //   jpm paperweight init                                       # in a plugin project
 {
@@ -8,7 +9,10 @@
   "runtime": {
     "org.jetbrains.kotlin:kotlin-stdlib": "2.4.10",
     "com.google.code.gson:gson": "2.14.0",
-    "io.sigpipe:jbsdiff": "1.0"
+    "io.sigpipe:jbsdiff": "1.0",
+    // paperweight-core: applying and rebuilding patches, access transformers
+    "io.codechicken:DiffPatch:all": { "version": "1.5.0.30", "exclude": ["*"] },
+    "org.cadixdev:at": "0.1.0-rc1"
   },
   "test": {
     "org.jetbrains.kotlin:kotlin-test-junit5": "2.4.10",

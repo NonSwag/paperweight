@@ -26,6 +26,20 @@ Minecraft version requires).
 It supports dev bundles of Minecraft 26.1 and newer (data version 8), which are not obfuscated, so plugins need no
 remapping. Decompiled server sources for IDEs are not generated yet.
 
+### Building Paper with jpm (paperweight-core)
+
+The same extension runs paperweight-core's patch workflow in a Paper checkout whose server module has
+`"extensions": { "paperweight": { "minecraftVersion": ..., "mache": ... } }`:
+
+```bash
+jpm paperweight apply      # applyPatches: Minecraft's sources with Paper's patches, in paper-server/src/minecraft
+jpm paperweight rebuild    # rebuildPatches
+```
+
+`"ext:paperweight/mache": "<mache version>"` in the server's dependencies gives it Minecraft's libraries.
+[jpm-paperweight/examples/paper](jpm-paperweight/examples/paper) has manifests that build Paper this way. The
+paperclip and bundler jars, the dev bundle, forks (patcher) and patch roulette are still only in the Gradle plugin.
+
 ### Building
 
 paperweight builds with [jpm](https://github.com/java-package-manager/jpm), which installs what it needs by itself,
