@@ -16,6 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: java-package-manager/setup-jpm@1
+        with:
+          # the newest build of jpm's main branch: Kotlin, gradle:api and ext: dependencies are not released yet
+          version: canary
       - name: Cache the Gradle distribution the plugins build against
         uses: actions/cache@v4
         with:
