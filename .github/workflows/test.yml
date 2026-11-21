@@ -12,18 +12,13 @@ jobs:
     runs-on: namespace-profile-linux-default
     steps:
       - uses: namespacelabs/nscloud-checkout-action@v9
-      - name: Set up cache
-        uses: namespacelabs/nscloud-cache-action@v1
+      - uses: java-package-manager/setup-jpm@1
+      - name: Cache the Gradle distribution the plugins build against
+        uses: actions/cache@v4
         with:
-          # jpm's downloads: Maven packages, JDKs and the Gradle distribution the plugins build against
-          path: |
-            ~/.jpm/repository
-            ~/.jpm/jdks
-            ~/.jpm/gradle
-      - name: Install jpm
-        run: |
-          curl -fsSL https://github.com/java-package-manager/jpm/releases/latest/download/install.sh | sh
-          echo "$HOME/.jpm/bin" >> "$GITHUB_PATH"
+          path: ${{ env.JPM_HOME }}/gradle
+          key: jpm-gradle-${{ runner.os }}-${{ hashFiles('project.lock') }}
+          restore-keys: jpm-gradle-${{ runner.os }}-
       - name: Check the lockfile
         run: jpm install --frozen
       - name: Lint
